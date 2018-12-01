@@ -4,15 +4,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Store {
+public class Store extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String name;
     private String category;
 
-    @ManyToMany(mappedBy = "stores", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "stores", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Item> items;
 
     public Store() {}
@@ -26,19 +23,10 @@ public class Store {
     @Override
     public String toString() {
         return "Store{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", items=" + items +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -7,24 +7,21 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Item {
+public class Item extends AbstractEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String name;
     private boolean bought;
     private String boughtWho;
     private Date boughtTime;
     private Date addedTime;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "store_id")
-    private List<Store> stores;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "storeId")
+    private Store stores;
 
     public Item() {}
 
-    public Item(String name, boolean bought, String boughtWho, Date boughtTime, Date addedTime, List<Store> stores) {
+    public Item(String name, boolean bought, String boughtWho, Date boughtTime, Date addedTime, Store stores) {
         this.name = name;
         this.bought = bought;
         this.boughtWho = boughtWho;
@@ -36,22 +33,13 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", bought=" + bought +
                 ", boughtWho='" + boughtWho + '\'' +
                 ", boughtTime=" + boughtTime +
                 ", addedTime=" + addedTime +
                 ", stores=" + stores +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -94,11 +82,11 @@ public class Item {
         this.addedTime = addedTime;
     }
 
-    public List<Store> getStores() {
+    public Store getStores() {
         return stores;
     }
 
-    public void setStores(List<Store> stores) {
+    public void setStores(Store stores) {
         this.stores = stores;
     }
 }
