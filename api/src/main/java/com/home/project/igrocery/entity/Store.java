@@ -1,15 +1,25 @@
 package com.home.project.igrocery.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Store extends AbstractEntity {
 
     private String name;
     private String category;
 
-    @OneToMany(mappedBy = "stores", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "store_item",
+                joinColumns = @JoinColumn(name = "store_id"),
+                inverseJoinColumns = @JoinColumn(name = "item_id"))
     private List<Item> items;
 
     public Store() {}

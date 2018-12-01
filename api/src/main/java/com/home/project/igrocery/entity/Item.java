@@ -1,13 +1,18 @@
 package com.home.project.igrocery.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Item extends AbstractEntity{
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
+public class Item extends AbstractEntity {
 
     private String name;
     private boolean bought;
@@ -15,13 +20,15 @@ public class Item extends AbstractEntity{
     private Date boughtTime;
     private Date addedTime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "storeId")
-    private Store stores;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "store_item",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "store_id"))
+    private List<Store> stores;
 
     public Item() {}
 
-    public Item(String name, boolean bought, String boughtWho, Date boughtTime, Date addedTime, Store stores) {
+    public Item(String name, boolean bought, String boughtWho, Date boughtTime, Date addedTime, List<Store> stores) {
         this.name = name;
         this.bought = bought;
         this.boughtWho = boughtWho;
@@ -82,11 +89,11 @@ public class Item extends AbstractEntity{
         this.addedTime = addedTime;
     }
 
-    public Store getStores() {
+    public List<Store> getStores() {
         return stores;
     }
 
-    public void setStores(Store stores) {
+    public void setStores(List<Store> stores) {
         this.stores = stores;
     }
 }
