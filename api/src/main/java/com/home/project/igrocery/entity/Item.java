@@ -1,6 +1,7 @@
 package com.home.project.igrocery.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -8,10 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id"
-)
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
 public class Item extends AbstractEntity {
 
     private String name;
@@ -24,6 +25,7 @@ public class Item extends AbstractEntity {
     @JoinTable(name = "store_item",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "store_id"))
+
     private List<Store> stores;
 
     public Item() {}
