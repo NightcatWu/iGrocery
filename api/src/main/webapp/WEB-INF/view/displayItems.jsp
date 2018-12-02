@@ -18,6 +18,7 @@
             <th>Bought</th>
             <th>Who</th>
             <th>Date</th>
+            <th>Store</th>
         </tr>
         <c:forEach var="item" items="${itemsList}">
             <tr>
