@@ -2,7 +2,11 @@ package com.home.project.igrocery.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.home.project.igrocery.utility.CustomItemSerializer;
+import com.home.project.igrocery.utility.CustomStoreSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,7 +29,8 @@ public class Item extends AbstractEntity {
     @JoinTable(name = "store_item",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "store_id"))
-
+    @JsonProperty("stores")
+    @JsonSerialize(using = CustomStoreSerializer.class)
     private List<Store> stores;
 
     public Item() {}
