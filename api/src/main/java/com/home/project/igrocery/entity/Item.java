@@ -1,25 +1,36 @@
 package com.home.project.igrocery.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.home.project.igrocery.utility.CustomItemSerializer;
+import com.home.project.igrocery.utility.CustomStoreSerializer;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Item {
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
+public class Item extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String name;
     private boolean bought;
     private String boughtWho;
     private Date boughtTime;
     private Date addedTime;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "store_id")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "store_item",
+            joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "store_id"))
+    @JsonProperty("stores")
+    @JsonSerialize(using = CustomStoreSerializer.class)
     private List<Store> stores;
 
     public Item() {}
@@ -36,22 +47,13 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", bought=" + bought +
                 ", boughtWho='" + boughtWho + '\'' +
                 ", boughtTime=" + boughtTime +
                 ", addedTime=" + addedTime +
                 ", stores=" + stores +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

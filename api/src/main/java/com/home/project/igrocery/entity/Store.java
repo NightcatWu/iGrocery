@@ -1,18 +1,31 @@
 package com.home.project.igrocery.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.home.project.igrocery.utility.CustomItemSerializer;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Store {
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "id"
+//)
+public class Store extends AbstractEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
     private String name;
     private String category;
 
-    @ManyToMany(mappedBy = "stores", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "store_item",
+                joinColumns = @JoinColumn(name = "store_id"),
+                inverseJoinColumns = @JoinColumn(name = "item_id"))
+    @JsonProperty("items")
+    @JsonSerialize(using = CustomItemSerializer.class)
     private List<Item> items;
 
     public Store() {}
@@ -26,19 +39,10 @@ public class Store {
     @Override
     public String toString() {
         return "Store{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", category='" + category + '\'' +
                 ", items=" + items +
                 '}';
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
