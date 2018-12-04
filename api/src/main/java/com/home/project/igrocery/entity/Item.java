@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.home.project.igrocery.utility.CustomItemSerializer;
 import com.home.project.igrocery.utility.CustomStoreSerializer;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -22,6 +23,9 @@ public class Item extends AbstractEntity {
     private String name;
     private boolean bought;
     private String boughtWho;
+
+    //@Temporal(TemporalType.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date boughtTime;
     private Date addedTime;
 
