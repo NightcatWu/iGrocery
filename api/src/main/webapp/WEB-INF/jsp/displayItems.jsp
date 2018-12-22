@@ -32,16 +32,14 @@
                             <form:checkbox path="items[${status.index}].bought" id="items[${status.index}].bought" value="${item.bought}" checked="checked"/>
                         </c:when>
                         <c:otherwise>
-                            <input type="checkbox" name="items[${status.index}].bought" value="${item.bought}"/>
+                            <form:checkbox path="items[${status.index}].bought" id="items[${status.index}].bought" value="${item.bought}"/>
                         </c:otherwise>
                     </c:choose>
                 </td>
-                <td><input name="items[${status.index}].id" value="${item.id}"/></td>
-                <td><input name="items[${status.index}].name" value="${item.name}"/></td>
-                <td><input name="items[${status.index}].bought" value="${item.bought}"/></td>
-                <td><input name="items[${status.index}].boughtWho" value="${item.boughtWho}"/></td>
-                <td><input hidden name="items[${status.index}].boughtTime" value="${item.boughtTime}"/></td>
-                <td><input hidden name="items[${status.index}].addedTime" value="${item.addedTime}"/></td>
+                <td><form:input path="items[${status.index}].id" value="${item.id}"/>
+                <td><form:input path="items[${status.index}].name" value="${item.name}"/></td>
+                <td><form:input path="items[${status.index}].bought" value="${item.bought}"/></td>
+                <td><form:hidden path="items[${status.index}].boughtWho" value="${item.boughtWho}"/></td>
             </tr>
         </c:forEach>
     </table>

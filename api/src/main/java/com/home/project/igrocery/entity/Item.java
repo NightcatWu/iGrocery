@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.home.project.igrocery.utility.CustomItemSerializer;
 import com.home.project.igrocery.utility.CustomStoreSerializer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -18,6 +22,10 @@ import java.util.List;
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id"
 //)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Item extends AbstractEntity {
 
     private String name;
@@ -25,9 +33,10 @@ public class Item extends AbstractEntity {
     private String boughtWho;
 
     //@Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private Date boughtTime;
-    private Date addedTime;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
+//    private Date boughtTime;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
+//    private Date addedTime;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "store_item",
@@ -37,74 +46,4 @@ public class Item extends AbstractEntity {
     @JsonSerialize(using = CustomStoreSerializer.class)
     private List<Store> stores;
 
-    public Item() {}
-
-    public Item(String name, boolean bought, String boughtWho, Date boughtTime, Date addedTime, List<Store> stores) {
-        this.name = name;
-        this.bought = bought;
-        this.boughtWho = boughtWho;
-        this.boughtTime = boughtTime;
-        this.addedTime = addedTime;
-        this.stores = stores;
-    }
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "name='" + name + '\'' +
-                ", bought=" + bought +
-                ", boughtWho='" + boughtWho + '\'' +
-                ", boughtTime=" + boughtTime +
-                ", addedTime=" + addedTime +
-                ", stores=" + stores +
-                '}';
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public boolean isBought() {
-        return bought;
-    }
-
-    public void setBought(boolean bought) {
-        this.bought = bought;
-    }
-
-    public String getBoughtWho() {
-        return boughtWho;
-    }
-
-    public void setBoughtWho(String boughtWho) {
-        this.boughtWho = boughtWho;
-    }
-
-    public Date getBoughtTime() {
-        return boughtTime;
-    }
-
-    public void setBoughtTime(Date boughtTime) {
-        this.boughtTime = boughtTime;
-    }
-
-    public Date getAddedTime() {
-        return addedTime;
-    }
-
-    public void setAddedTime(Date addedTime) {
-        this.addedTime = addedTime;
-    }
-
-    public List<Store> getStores() {
-        return stores;
-    }
-
-    public void setStores(List<Store> stores) {
-        this.stores = stores;
-    }
 }

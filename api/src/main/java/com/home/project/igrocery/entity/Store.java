@@ -6,6 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.home.project.igrocery.utility.CustomItemSerializer;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,6 +19,10 @@ import java.util.List;
 //        generator = ObjectIdGenerators.PropertyGenerator.class,
 //        property = "id"
 //)
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Store extends AbstractEntity {
 
     private String name;
@@ -28,44 +36,4 @@ public class Store extends AbstractEntity {
     @JsonSerialize(using = CustomItemSerializer.class)
     private List<Item> items;
 
-    public Store() {}
-
-    public Store(String name, String category, List<Item> items) {
-        this.name = name;
-        this.category = category;
-        this.items = items;
-    }
-
-    @Override
-    public String toString() {
-        return "Store{" +
-                "name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                ", items=" + items +
-                '}';
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
 }
