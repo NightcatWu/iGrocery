@@ -51,6 +51,9 @@ public class ItemController {
 //
 //        return "displayItems";
 
+        for (Item tempItem : listItems) {
+            itemRepository.save(tempItem);
+        }
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
