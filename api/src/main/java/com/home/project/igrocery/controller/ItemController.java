@@ -51,10 +51,7 @@ public class ItemController {
 //
 //        return "displayItems";
 
-        for (Item tempItem : listItems) {
-            items.add(tempItem);
-        }
-        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }

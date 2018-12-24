@@ -19,13 +19,16 @@
                 $(document).on("change", "#tableBody", function () {
                     event.preventDefault();
                     ajaxPost();
+                    // Refresh display
+                    ajaxGet();
+
                 });
                 function ajaxPost() {
                     var data=[];
                     var itemId, itemBought, itemName;
                     $("#tableBody tr").each(function (index, item) {
                          itemId = $(this).find("#itemId").text();
-                         itemBought = $(this).find("#itemBought").text();
+                         itemBought = $(this).find("input[type=checkbox]").prop("checked");
                          itemName = $(this).find("#itemName").text();
                          data.push({
                              id: itemId,
@@ -46,7 +49,7 @@
                             if (result.status == "success") {
                                 var itemList = "";
                                 $.each(result.data, function (i, item) {
-                                    itemList += item.name;
+                                    itemList += item.id + " " + item.bought + " " + item.name + "<br>";
                                 })
                                 $("#postResultDiv").html(itemList) + "Success!!";
 
@@ -80,7 +83,7 @@
                                 $.each(result.data, function (i, item) {
                                     var tempTBody = "<tr><td id='itemId'>" + item.id + "</td><td id='itemBought'><input type='checkbox' ";
                                     if (item.bought) {
-                                        tempTBody += "checked";
+                                        tempTBody += "checked='checked' ";
                                     }
                                     tempTBody += "></td><td id='itemName'>" + item.name + "</td></tr>";
                                     $("#tableBody").append(tempTBody);
