@@ -19,8 +19,6 @@
                 $(document).on("change", "#tableBody", function () {
                     event.preventDefault();
                     ajaxPost();
-                    // Refresh display
-                    ajaxGet();
 
                 });
                 function ajaxPost() {
@@ -78,7 +76,7 @@
                         url : "getAllItems",
                         success: function (result) {
                             if (result.status == "success") {
-                                $("#getResultDiv ul").empty();
+                                $("#getResultDiv").empty();
                                 var itemList = "";
                                 $.each(result.data, function (i, item) {
                                     var tempTBody = "<tr><td id='itemId'>" + item.id + "</td><td id='itemBought'><input type='checkbox' ";
