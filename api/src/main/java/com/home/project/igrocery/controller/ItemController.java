@@ -1,10 +1,13 @@
 package com.home.project.igrocery.controller;
 
 import com.home.project.igrocery.entity.Item;
+import com.home.project.igrocery.entity.ServiceResponse;
 import com.home.project.igrocery.repository.ItemRepository;
 import com.home.project.igrocery.entity.ItemsForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,14 +42,29 @@ public class ItemController {
     }
 
     @PostMapping("/submitItems")
-    public String changeItemStatus(@ModelAttribute("itemsForm") ItemsForm itemsForm, Model theModel) {
+    public ResponseEntity<Object> changeItemStatus(@RequestBody List<Item> listItems) {
 
-        for (Item tempItem : itemsForm.getItems()) {
-            itemRepository.save(tempItem);
+//        for (Item tempItem : itemsForm.getItems()) {
+//            itemRepository.save(tempItem);
+//        }
+//        theModel.addAttribute("itemsForm", itemsForm);
+//
+//        return "displayItems";
+
+        for (Item tempItem : listItems) {
+            items.add(tempItem);
         }
-        theModel.addAttribute("itemsForm", itemsForm);
+        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
 
-        return "displayItems";
+    }
+
+    @GetMapping("/getAllItems")
+    public ResponseEntity<Object> getAllItems() {
+
+        items = itemRepository.findAll();
+        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
 
