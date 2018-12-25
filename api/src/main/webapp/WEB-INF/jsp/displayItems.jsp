@@ -14,6 +14,7 @@
     <script src="/getAllItems.js"></script>
     <script src="/postAllItems.js"></script>
     <script src="/getBoughtItems.js"></script>
+    <script src="/getUnboughtItems.js"></script>
 <body>
 <form>
     <h2>Items</h2>
@@ -22,11 +23,6 @@
         <button id="getUnboughtItems" type="button">Display unbought items</button>
 
         <div id="getResultDiv">
-            <ul class="list-group">
-            </ul>
-        </div>
-
-        <div>
             <table id="tableItems">
                 <thead>
                     <tr>

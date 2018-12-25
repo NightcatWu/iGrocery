@@ -1,7 +1,7 @@
 GET: $(document).ready(
     function() {
         // get request
-        $("#getBoughtItems").click(function (event) {
+        $("#getUnboughtItems").click(function (event) {
 
             console.log("Get Request starting...");
             event.preventDefault();
@@ -12,7 +12,7 @@ GET: $(document).ready(
         function ajaxGet() {
             $.ajax( {
                 type: "GET",
-                url : "getBoughtItems",
+                url : "getUnboughtItems",
                 success: function (result) {
                     if (result.status == "success") {
                         $("#tableBody tr").empty();

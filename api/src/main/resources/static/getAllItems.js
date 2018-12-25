@@ -15,7 +15,7 @@ GET: $(document).ready(
                 url : "getAllItems",
                 success: function (result) {
                     if (result.status == "success") {
-                        $("#getResultDiv ul").empty();
+                        $("#tableBody tr").empty();
                         var itemList = "";
                         $.each(result.data, function (i, item) {
                             var tempTBody = "<tr><td id='itemBought'><input type='checkbox' ";

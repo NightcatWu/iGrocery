@@ -60,4 +60,12 @@ public class ItemController {
 
     }
 
+    @GetMapping("/getUnboughtItems")
+    public ResponseEntity<Object> getUnboughtItems() {
+
+        List<Item> items = itemRepository.findAllBought(false);
+        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+
+    }
 }
