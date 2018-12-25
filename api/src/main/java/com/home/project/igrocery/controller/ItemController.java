@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,17 +26,8 @@ public class ItemController {
 
     private static List<Item> items = new ArrayList<>();
 
-    @GetMapping("/items")
-    public String displayItems(Model theModel) {
-
-        items = itemRepository.findAll();
-        ItemsForm itemsForm = new ItemsForm();
-        itemsForm.setItems(items);
-        theModel.addAttribute("itemsForm", itemsForm);
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("itemsForm", itemsForm);
-        modelAndView.addObject("testObj", itemsForm);
+    @GetMapping("/")
+    public String displayItems() {
 
         return "displayItems";
 
@@ -43,13 +35,6 @@ public class ItemController {
 
     @PostMapping("/submitItems")
     public ResponseEntity<Object> changeItemStatus(@RequestBody List<Item> listItems) {
-
-//        for (Item tempItem : itemsForm.getItems()) {
-//            itemRepository.save(tempItem);
-//        }
-//        theModel.addAttribute("itemsForm", itemsForm);
-//
-//        return "displayItems";
 
         for (Item tempItem : listItems) {
             itemRepository.save(tempItem);
@@ -60,13 +45,12 @@ public class ItemController {
     }
 
     @GetMapping("/getAllItems")
-    public ResponseEntity<Object> getAllItems() {
+    public ResponseEntity<Object> getAllItems(Model theModel) {
 
         items = itemRepository.findAll();
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
-
 
 }
