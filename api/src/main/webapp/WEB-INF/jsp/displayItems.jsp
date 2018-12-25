@@ -1,6 +1,8 @@
+<!--
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,18 +13,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    <script src="/getAllItems.js"></script>
     <script src="/postAllItems.js"></script>
+    <script src="/postNewItem.js"></script>
+    <script src="/getAllItems.js"></script>
     <script src="/getBoughtItems.js"></script>
     <script src="/getUnboughtItems.js"></script>
+</head>
+
 <body>
 <form>
-    <h2>Items</h2>
+    <h1>iGrocery</h1>
         <button id="getAllItems" type="button">Display all items</button>
         <button id="getBoughtItems" type="button">Display bought items</button>
         <button id="getUnboughtItems" type="button">Display unbought items</button>
 
+        <hr>
+        <div id="newItem">
+            <!-- Section of new item -->
+            <input type="text" id="newItemName">
+            <button id="addItem" type="button>">Add</button>
+        </div>
+
+        <hr>
         <div id="getResultDiv">
+            <!-- Section of item list -->
             <table id="tableItems">
                 <thead>
                     <tr>

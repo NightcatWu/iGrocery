@@ -1,15 +1,15 @@
-GET: $(document).ready(
+$(document).ready(
     function() {
         // get request
         $("#getAllItems").click(function (event) {
 
-            console.log("Get Request starting...");
             event.preventDefault();
             ajaxGet();
 
         });
-        // get
+
         function ajaxGet() {
+
             $.ajax( {
                 type: "GET",
                 url : "getAllItems",
@@ -35,7 +35,7 @@ GET: $(document).ready(
                 error : function (e) {
                     $("#getResultDiv").html(e.toString());
                 }
-            });
-        }
+            })
+         }
     }
 )

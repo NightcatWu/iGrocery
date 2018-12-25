@@ -24,6 +24,8 @@ public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
 
+    private static List<Item> items = new ArrayList<>();
+
     @GetMapping("/")
     public String displayItems() {
 
@@ -45,7 +47,7 @@ public class ItemController {
     @GetMapping("/getAllItems")
     public ResponseEntity<Object> getAllItems() {
 
-        List<Item> items = itemRepository.findAll();
+        items = itemRepository.findAll();
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
@@ -54,7 +56,7 @@ public class ItemController {
     @GetMapping("/getBoughtItems")
     public ResponseEntity<Object> getBoughtItems() {
 
-        List<Item> items = itemRepository.findAllBought(true);
+        items = itemRepository.findAllBought(true);
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
@@ -63,8 +65,18 @@ public class ItemController {
     @GetMapping("/getUnboughtItems")
     public ResponseEntity<Object> getUnboughtItems() {
 
-        List<Item> items = itemRepository.findAllBought(false);
+        items = itemRepository.findAllBought(false);
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/addItem")
+    public ResponseEntity<Object> addItem(@RequestBody Item item) {
+
+        itemRepository.save(item);
+        List<Item> listItems = itemRepository.findAll();
+        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }

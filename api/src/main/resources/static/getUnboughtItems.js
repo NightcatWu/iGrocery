@@ -1,9 +1,8 @@
-GET: $(document).ready(
+$(document).ready(
     function() {
         // get request
         $("#getUnboughtItems").click(function (event) {
 
-            console.log("Get Request starting...");
             event.preventDefault();
             ajaxGet();
 

@@ -1,18 +1,23 @@
 $(document).ready(
     function() {
-        // get request
-        $("#getBoughtItems").click(function (event) {
-
+        //
+        $(document).on("click", "#addItem", function () {
             event.preventDefault();
-            ajaxGet();
-
+            ajaxPost();
         });
-        // get
-        function ajaxGet() {
-            $.ajax( {
-                type: "GET",
-                url : "getBoughtItems",
-                success: function (result) {
+        function ajaxPost() {
+
+            var data = {};
+            data["name"] = $("#newItemName").val();
+            data["bought"] = false;
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "addItem",
+                data: JSON.stringify(data),
+                dataType: 'json',
+                success: function(result) {
                     if (result.status == "success") {
                         $("#tableBody tr").empty();
                         var itemList = "";
@@ -22,17 +27,16 @@ $(document).ready(
                                 tempTBody += "checked='checked' ";
                             }
                             tempTBody += "></td><td id='itemId'>" + item.id +
-                                        "</td><td id='itemName'><input type='text' name='name' value='" + item.name + "'></td></tr>";
+                                "</td><td id='itemName'><input type='text' name='name' value='" + item.name + "'></td></tr>";
                             $("#tableBody").append(tempTBody);
                         })
 
-                        //
                     } else {
-                        $("#getResultDiv").html("ERROR");
+                        $("#postResultDiv").html("ERROR");
                     }
                 },
-                error : function (e) {
-                    $("#getResultDiv").html(e.toString());
+                error: function (e) {
+                    alert ("ERROR!!!");
                 }
             });
         }
