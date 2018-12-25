@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="/getAllItems.js"></script>
     <script src="/postAllItems.js"></script>
+    <script src="/getBoughtItems.js"></script>
 <body>
 <form>
     <h2>Items</h2>

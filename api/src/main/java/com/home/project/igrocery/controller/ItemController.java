@@ -24,8 +24,6 @@ public class ItemController {
     @Autowired
     private ItemRepository itemRepository;
 
-    private static List<Item> items = new ArrayList<>();
-
     @GetMapping("/")
     public String displayItems() {
 
@@ -45,9 +43,18 @@ public class ItemController {
     }
 
     @GetMapping("/getAllItems")
-    public ResponseEntity<Object> getAllItems(Model theModel) {
+    public ResponseEntity<Object> getAllItems() {
 
-        items = itemRepository.findAll();
+        List<Item> items = itemRepository.findAll();
+        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+
+    }
+
+    @GetMapping("/getBoughtItems")
+    public ResponseEntity<Object> getBoughtItems() {
+
+        List<Item> items = itemRepository.findAllBought(true);
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
