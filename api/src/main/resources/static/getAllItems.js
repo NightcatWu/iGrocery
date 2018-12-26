@@ -1,7 +1,7 @@
 $(document).ready(
     function() {
         // get request
-        $("#getAllItems").click(function (event) {
+        $("#displayAll").click(function (event) {
 
             event.preventDefault();
             ajaxGet();

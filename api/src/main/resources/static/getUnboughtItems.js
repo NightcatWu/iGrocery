@@ -1,14 +1,15 @@
 $(document).ready(
     function() {
+        ajaxGetInit();
         // get request
-        $("#getUnboughtItems").click(function (event) {
-
-            event.preventDefault();
-            ajaxGet();
-
-        });
+        // $("#getUnboughtItems").click(function (event) {
+        //
+        //     event.preventDefault();
+        //     ajaxGet();
+        //
+        // });
         // get
-        function ajaxGet() {
+        function ajaxGetInit() {
             $.ajax( {
                 type: "GET",
                 url : "getUnboughtItems",

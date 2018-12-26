@@ -5,6 +5,7 @@ import com.home.project.igrocery.entity.ServiceResponse;
 import com.home.project.igrocery.repository.ItemRepository;
 import com.home.project.igrocery.entity.ItemsForm;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class ItemController {
     @GetMapping("/getAllItems")
     public ResponseEntity<Object> getAllItems() {
 
-        items = itemRepository.findAll();
+        items = itemRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
@@ -56,7 +57,7 @@ public class ItemController {
     @GetMapping("/getBoughtItems")
     public ResponseEntity<Object> getBoughtItems() {
 
-        items = itemRepository.findAllBought(true);
+        items = itemRepository.findAllBought(true, new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
@@ -65,7 +66,7 @@ public class ItemController {
     @GetMapping("/getUnboughtItems")
     public ResponseEntity<Object> getUnboughtItems() {
 
-        items = itemRepository.findAllBought(false);
+        items = itemRepository.findAllBought(false, new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
@@ -75,7 +76,16 @@ public class ItemController {
     public ResponseEntity<Object> addItem(@RequestBody Item item) {
 
         itemRepository.save(item);
-        List<Item> listItems = itemRepository.findAll();
+        List<Item> listItems = itemRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
+        ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
+        return new ResponseEntity<Object>(response, HttpStatus.OK);
+
+    }
+
+    @PostMapping("/changeDisplayType")
+    public ResponseEntity<Object> changeDisplayType(@RequestBody Boolean displayAll) {
+
+        List<Item> listItems = itemRepository.findAll(new Sort(Sort.Direction.DESC, "id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
