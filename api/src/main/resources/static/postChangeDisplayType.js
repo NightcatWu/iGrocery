@@ -16,13 +16,14 @@ $(document).ready(
                 success: function(result) {
                     if (result.status == "success") {
 
-                        $("#tableBody tr").empty();
+                        $("#tableBody").empty();
                         var itemList = "";
+                        var tempTBody = "";
 
                         if ($("#displayAll").prop("checked")) { // display all items
 
                             $.each(result.data, function (i, item) {
-                                var tempTBody = "<tr><td id='itemBought'><input type='checkbox' ";
+                                tempTBody = "<tr><td id='itemBought'><input type='checkbox' ";
                                 if (item.bought) {
                                     tempTBody += "checked='checked' ";
                                 }
@@ -37,7 +38,7 @@ $(document).ready(
 
                                 if (item.bought == false) {
 
-                                    var tempTBody = "<tr><td id='itemBought'><input type='checkbox' ";
+                                    tempTBody = "<tr><td id='itemBought'><input type='checkbox' ";
                                     if (item.bought) {
                                         tempTBody += "checked='checked' ";
                                     }

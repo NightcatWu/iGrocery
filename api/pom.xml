@@ -85,7 +85,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.home.project.igrocery</mainClass>
+                            <mainClass>com.home.project.igrocery.IgroceryApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
