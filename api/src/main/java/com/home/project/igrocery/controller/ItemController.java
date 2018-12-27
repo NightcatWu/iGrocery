@@ -18,21 +18,13 @@ import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-@SessionAttributes("testObj")
+@RestController
 public class ItemController {
 
     @Autowired
     private ItemRepository itemRepository;
 
     private static List<Item> items = new ArrayList<>();
-
-    @GetMapping("/")
-    public String displayItems() {
-
-        return "items";
-
-    }
 
     @PostMapping("/submitItems")
     public ResponseEntity<Object> changeItemStatus(@RequestBody List<Item> listItems) {
