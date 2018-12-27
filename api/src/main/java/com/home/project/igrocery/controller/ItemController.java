@@ -30,7 +30,7 @@ public class ItemController {
     @GetMapping("/")
     public String displayItems() {
 
-        return "displayItems";
+        return "items";
 
     }
 
