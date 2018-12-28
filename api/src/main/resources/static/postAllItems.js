@@ -34,14 +34,14 @@ $(document).ready(
                         $.each(result.data, function (i, item) {
                             itemList += item.id + " " + item.bought + " " + item.name + "<br>";
                         })
-                        $("#postResultDiv").html(itemList) + "Success!!";
+                        console.log((itemList));
 
                     } else {
-                        $("#postResultDiv").html("ERROR");
+                        console.log("ERROR");
                     }
                 },
                 error: function (e) {
-                    alert ("ERROR!!!");
+                    console.log(e.toString());
                 }
             });
         }

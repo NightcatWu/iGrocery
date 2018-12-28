@@ -24,7 +24,6 @@
     -->
     <hr>
     <div id="newItem">
-        <h3>Add new item</h3>
         <!-- Section of new item -->
         <input type="text" id="newItemName">
         <button id="addItem" type="button>">Add</button>
@@ -32,14 +31,13 @@
 
     <hr>
     <div id="getResultDiv">
-        <h3>Items list</h3>
         <input type="checkbox" id="displayAll">include bought items
         <!-- Section of item list -->
         <table id="tableItems">
-            <thead>
+            <thead style="visibility: hidden;">
             <tr>
                 <th>Status</th>
-                <th>ID</th>
+                <th style="visibility: hidden;">ID</th>
                 <th>Items List</th>
             </tr>
             </thead>
@@ -47,7 +45,6 @@
             </tbody>
         </table>
     </div>
-    <div id="postResultDiv" align="center"></div>
 </form>
 
 </body>

@@ -27,7 +27,7 @@ $(document).ready(
                                 if (item.bought) {
                                     tempTBody += "checked='checked' ";
                                 }
-                                tempTBody += "></td><td id='itemId'>" + item.id +
+                                tempTBody += "></td><td id='itemId' style=\"visibility: hidden;\">" + item.id +
                                     "</td><td id='itemName'><input type='text' name='name' value='" + item.name + "'></td></tr>";
                                 $("#tableBody").append(tempTBody);
                             })
@@ -42,19 +42,18 @@ $(document).ready(
                                     if (item.bought) {
                                         tempTBody += "checked='checked' ";
                                     }
-                                    tempTBody += "></td><td id='itemId'>" + item.id +
+                                    tempTBody += "></td><td id='itemId' style=\"visibility: hidden;\">" + item.id +
                                         "</td><td id='itemName'><input type='text' name='name' value='" + item.name + "'></td></tr>";
                                     $("#tableBody").append(tempTBody);
                                 }
                             })
                         }
-
                     } else {
-                        $("#postResultDiv").html("ERROR");
+                        console.log("ERROR");
                     }
                 },
                 error: function (e) {
-                    alert ("ERROR!!!");
+                    console.log(e.toString());
                 }
             });
         }
