@@ -4,6 +4,7 @@ $(document).ready(
         $(document).on("click", "#addItem", function () {
             event.preventDefault();
             ajaxPost();
+            $("#newItemName").val('');
         });
         function ajaxPost() {
 
