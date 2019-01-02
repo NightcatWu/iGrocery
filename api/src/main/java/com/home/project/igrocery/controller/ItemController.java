@@ -4,6 +4,9 @@ import com.home.project.igrocery.entity.Item;
 import com.home.project.igrocery.entity.ServiceResponse;
 import com.home.project.igrocery.repository.ItemRepository;
 import com.home.project.igrocery.entity.ItemsForm;
+import org.apache.logging.log4j.spi.LoggerRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,6 +28,8 @@ public class ItemController {
     private ItemRepository itemRepository;
 
     private static List<Item> items = new ArrayList<>();
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(ItemController.class);
 
     @PostMapping("/submitItems")
     public ResponseEntity<Object> changeItemStatus(@RequestBody List<Item> listItems) {
@@ -70,6 +75,9 @@ public class ItemController {
         itemRepository.save(item);
         List<Item> listItems = itemRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
+
+        LOGGER.info("New item is added: " + item);
+
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
