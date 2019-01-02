@@ -38,6 +38,9 @@ public class ItemController {
             itemRepository.save(tempItem);
         }
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
+
+        LOGGER.info("---> Method: changeItemStatus()");
+
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
@@ -47,6 +50,7 @@ public class ItemController {
 
         items = itemRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        LOGGER.info("---> Method: getAllItems()");
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
@@ -56,6 +60,7 @@ public class ItemController {
 
         items = itemRepository.findAllBought(true, new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        LOGGER.info("---> Method: getBoughtItems()");
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
@@ -65,6 +70,7 @@ public class ItemController {
 
         items = itemRepository.findAllBought(false, new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", items);
+        LOGGER.info("---> Method: getUnboughtItems()");
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 
     }
@@ -76,7 +82,7 @@ public class ItemController {
         List<Item> listItems = itemRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
 
-        LOGGER.info("New item is added: " + item);
+        LOGGER.info("---> Method: addItem (" + item.getName() + ")");
 
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 

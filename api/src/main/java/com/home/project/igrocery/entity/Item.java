@@ -46,4 +46,35 @@ public class Item extends AbstractEntity {
     @JsonSerialize(using = CustomStoreSerializer.class)
     private List<Store> stores;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isBought() {
+        return bought;
+    }
+
+    public void setBought(boolean bought) {
+        this.bought = bought;
+    }
+
+    public String getBoughtWho() {
+        return boughtWho;
+    }
+
+    public void setBoughtWho(String boughtWho) {
+        this.boughtWho = boughtWho;
+    }
+
+    public List<Store> getStores() {
+        return stores;
+    }
+
+    public void setStores(List<Store> stores) {
+        this.stores = stores;
+    }
 }

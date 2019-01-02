@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-    <property name="LOG_DIR" value="log"/>
+    <property name="LOG_DIR" value="D:\!logs\iGrocery"/>
     <property name="FILE_PREFIX" value="iGrocery"/>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
