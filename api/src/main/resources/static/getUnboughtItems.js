@@ -1,10 +1,6 @@
 $(document).ready(
     function() {
 
-        if ($("#errorMsg").is(":visible")) {
-            $("#errorMsg").show();
-        }
-
         ajaxGetInit();
 
         // get request
