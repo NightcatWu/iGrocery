@@ -18,6 +18,9 @@ $(document).ready(
                     bought : itemBought,
                     name: itemName
                 });
+                if (itemBought) {
+                    $(this).find("input[name=name]").attr("disabled", "disabled");
+                }
             });
             submitFormData(data);
         }

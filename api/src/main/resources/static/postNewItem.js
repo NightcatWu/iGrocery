@@ -3,9 +3,11 @@ $(document).ready(
         //
         $(document).on("click", "#addItem", function () {
             if (!$("#newItemName").val()) {
-                //$("#newItemName").parent().append("<br><span style='color: red;'>Please enter a value.</span>");
                 $("#errorMsg").show();
+                event.preventDefault();
+                return;
             } else {
+                $("#errorMsg").hide();
                 event.preventDefault();
                 ajaxPost();
                 $("#newItemName").val('');

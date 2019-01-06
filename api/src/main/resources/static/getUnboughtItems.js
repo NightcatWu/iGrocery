@@ -1,7 +1,7 @@
 $(document).ready(
     function() {
 
-        if ($("#errorMsg").is(":visible")$("#errorMsg").is(":visible")) {
+        if ($("#errorMsg").is(":visible")) {
             $("#errorMsg").show();
         }
 
