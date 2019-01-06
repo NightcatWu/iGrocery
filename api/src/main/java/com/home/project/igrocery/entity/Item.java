@@ -1,20 +1,14 @@
 package com.home.project.igrocery.entity;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.home.project.igrocery.utility.CustomItemSerializer;
-import com.home.project.igrocery.utility.CustomStoreSerializer;
+import com.home.project.igrocery.utility.CustomEventSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -39,12 +33,12 @@ public class Item extends AbstractEntity {
 //    private Date addedTime;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "store_item",
+    @JoinTable(name = "event_item",
             joinColumns = @JoinColumn(name = "item_id"),
-            inverseJoinColumns = @JoinColumn(name = "store_id"))
-    @JsonProperty("stores")
-    @JsonSerialize(using = CustomStoreSerializer.class)
-    private List<Store> stores;
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
+    @JsonProperty("events")
+    @JsonSerialize(using = CustomEventSerializer.class)
+    private List<Event> events;
 
     public String getName() {
         return name;
@@ -70,11 +64,11 @@ public class Item extends AbstractEntity {
         this.boughtWho = boughtWho;
     }
 
-    public List<Store> getStores() {
-        return stores;
+    public List<Event> getEvents() {
+        return events;
     }
 
-    public void setStores(List<Store> stores) {
-        this.stores = stores;
+    public void setEvents(List<Event> events) {
+        this.events = events;
     }
 }

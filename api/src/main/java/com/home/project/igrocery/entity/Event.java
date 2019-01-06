@@ -23,17 +23,31 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Store extends AbstractEntity {
+public class Event extends AbstractEntity {
 
     private String name;
-    private String category;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "store_item",
-                joinColumns = @JoinColumn(name = "store_id"),
+    @JoinTable(name = "event_item",
+                joinColumns = @JoinColumn(name = "event_id"),
                 inverseJoinColumns = @JoinColumn(name = "item_id"))
     @JsonProperty("items")
     @JsonSerialize(using = CustomItemSerializer.class)
     private List<Item> items;
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 }

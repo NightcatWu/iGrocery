@@ -3,31 +3,31 @@ package com.home.project.igrocery.utility;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-import com.home.project.igrocery.entity.Store;
+import com.home.project.igrocery.entity.Event;
 
 import java.io.IOException;
 import java.util.List;
 
-public class CustomStoreSerializer extends StdSerializer<List<Store>> {
+public class CustomEventSerializer extends StdSerializer<List<Event>> {
 
-    public CustomStoreSerializer() {
+    public CustomEventSerializer() {
         this (null);
     }
 
-    public CustomStoreSerializer(Class<List<Store>> t) {
+    public CustomEventSerializer(Class<List<Event>> t) {
         super(t);
     }
 
     @Override
-    public void serialize(List<Store> stores,
+    public void serialize(List<Event> events,
                           JsonGenerator jsonGenerator,
                           SerializerProvider serializerProvider) throws IOException {
 
         jsonGenerator.writeStartArray();
-        for (Store store : stores) {
+        for (Event event : events) {
             jsonGenerator.writeStartObject();
-            jsonGenerator.writeStringField("Store id", String.valueOf(store.getId()));
-            jsonGenerator.writeStringField("Name", store.getName());
+            jsonGenerator.writeStringField("Event id", String.valueOf(event.getId()));
+            jsonGenerator.writeStringField("Name", event.getName());
             jsonGenerator.writeEndObject();
         }
         jsonGenerator.writeEndArray();
