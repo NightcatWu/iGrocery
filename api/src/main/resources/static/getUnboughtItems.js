@@ -1,6 +1,12 @@
 $(document).ready(
     function() {
+
+        if ($("#errorMsg").is(":visible")$("#errorMsg").is(":visible")) {
+            $("#errorMsg").show();
+        }
+
         ajaxGetInit();
+
         // get request
         // $("#getUnboughtItems").click(function (event) {
         //

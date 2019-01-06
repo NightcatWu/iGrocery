@@ -13,6 +13,9 @@
     <script src="/getUnboughtItems.js"></script>
     <script src="/postChangeDisplayType.js"></script>
     <style>
+        table {
+            margin-left: 10px;
+        }
         .switch {
             position: relative;
             display: inline-block;
@@ -74,6 +77,8 @@
         <!-- Section of new item -->
         <input type="text" id="newItemName">
         <button id="addItem" type="button>">Add</button>
+        <br>
+        <p id="errorMsg" style="color: red; display: none;">please enter a value.</p>
     </div>
 
     <hr>

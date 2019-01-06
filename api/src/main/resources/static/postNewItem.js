@@ -2,9 +2,14 @@ $(document).ready(
     function() {
         //
         $(document).on("click", "#addItem", function () {
-            event.preventDefault();
-            ajaxPost();
-            $("#newItemName").val('');
+            if (!$("#newItemName").val()) {
+                //$("#newItemName").parent().append("<br><span style='color: red;'>Please enter a value.</span>");
+                $("#errorMsg").show();
+            } else {
+                event.preventDefault();
+                ajaxPost();
+                $("#newItemName").val('');
+            }
         });
         function ajaxPost() {
 
