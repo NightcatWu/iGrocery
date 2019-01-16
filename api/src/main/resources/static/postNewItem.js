@@ -18,6 +18,8 @@ $(document).ready(
             var data = {};
             data["name"] = $("#newItemName").val();
             data["bought"] = false;
+            //data["events"] = $("#myTab li a.active").attr("aria-controls");
+            data["event"] = 1;
 
             $.ajax({
                 type: "POST",

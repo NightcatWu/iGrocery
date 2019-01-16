@@ -11,10 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
-public class IgroceryApplication {
+public class igroceryApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(IgroceryApplication.class, args);
+        SpringApplication.run(igroceryApplication.class, args);
     }
 
 }

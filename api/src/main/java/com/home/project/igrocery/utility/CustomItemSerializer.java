@@ -30,6 +30,8 @@ public class CustomItemSerializer extends StdSerializer<List<Item>> {
             jsonGenerator.writeStringField("Item id", String.valueOf(item.getId()));
             jsonGenerator.writeStringField("Item name", item.getName());
             jsonGenerator.writeStringField("Who bought", item.getBoughtWho());
+            //jsonGenerator.writeStringField("Event id", String.valueOf(item.getEvents().getId()));
+
             jsonGenerator.writeEndObject();
         }
         jsonGenerator.writeEndArray();
