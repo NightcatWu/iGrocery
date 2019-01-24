@@ -19,7 +19,9 @@ $(document).ready(
             data["name"] = $("#newItemName").val();
             data["bought"] = false;
             //data["events"] = $("#myTab li a.active").attr("aria-controls");
-            data["event"] = 1;
+            //var str = '{"0":' + "0" + '}';
+            //data["events"] = JSON.parse(str);
+            data["events"] = "0";
 
             $.ajax({
                 type: "POST",
@@ -68,7 +70,7 @@ $(document).ready(
                     }
                 },
                 error: function (e) {
-                    console.log(e.toString());
+                    console.log(e.responseJSON.message);
                 }
             });
         }

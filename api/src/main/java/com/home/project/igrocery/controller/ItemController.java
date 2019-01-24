@@ -1,5 +1,6 @@
 package com.home.project.igrocery.controller;
 
+import com.home.project.igrocery.entity.Event;
 import com.home.project.igrocery.entity.Item;
 import com.home.project.igrocery.entity.ServiceResponse;
 import com.home.project.igrocery.repository.ItemRepository;
@@ -76,8 +77,14 @@ public class ItemController {
     }
 
     @PostMapping("/addItem")
+    @ResponseBody
     public ResponseEntity<Object> addItem(@RequestBody Item item) {
 
+//        Event event = new Event(); List<Event> events = new ArrayList<>();
+//        event.setId(1);
+//        event.setName("Life");
+//        events.add(event);
+//        item.setEvents(events);
         itemRepository.save(item);
         List<Item> listItems = itemRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
