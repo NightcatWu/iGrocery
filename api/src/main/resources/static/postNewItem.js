@@ -18,11 +18,17 @@ $(document).ready(
             var data = {};
             data["name"] = $("#newItemName").val();
             data["bought"] = false;
-            //data["events"] = $("#myTab li a.active").attr("aria-controls");
-            //var str = '{"0":' + "0" + '}';
-            //data["events"] = JSON.parse(str);
-            data["events"] = "0";
+            switch ($("#myTab li a.active").attr("aria-controls")) {
+                case "life":
+                    data["addToEventId"] = 1;
+                    break;
+                case "china":
+                    data["addToEventId"] = 2;
+                    break;
+                default:
+                    data["addToEventId"]= 1;
 
+            }
             $.ajax({
                 type: "POST",
                 contentType: "application/json",

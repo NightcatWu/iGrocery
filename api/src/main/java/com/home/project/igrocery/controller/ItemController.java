@@ -3,6 +3,7 @@ package com.home.project.igrocery.controller;
 import com.home.project.igrocery.entity.Event;
 import com.home.project.igrocery.entity.Item;
 import com.home.project.igrocery.entity.ServiceResponse;
+import com.home.project.igrocery.repository.EventRepository;
 import com.home.project.igrocery.repository.ItemRepository;
 import com.home.project.igrocery.entity.ItemsForm;
 import org.apache.logging.log4j.spi.LoggerRegistry;
@@ -18,15 +19,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.print.DocFlavor;
 import javax.xml.ws.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 public class ItemController {
 
     @Autowired
     private ItemRepository itemRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
     private static List<Item> items = new ArrayList<>();
 
@@ -78,18 +83,18 @@ public class ItemController {
 
     @PostMapping("/addItem")
     @ResponseBody
-    public ResponseEntity<Object> addItem(@RequestBody Item item) {
+    public ResponseEntity<Object> addItem(@RequestBody Map<String, String> params) {
 
-//        Event event = new Event(); List<Event> events = new ArrayList<>();
-//        event.setId(1);
-//        event.setName("Life");
-//        events.add(event);
-//        item.setEvents(events);
+        Event event = eventRepository.findById(Integer.parseInt(params.get("addToEventId"))).get();
+        Item item = new Item();
+        item.setName(params.get("name"));
+        item.setBought(Boolean.parseBoolean(params.get("bought")));
+        item.addEvent(event);
         itemRepository.save(item);
+
         List<Item> listItems = itemRepository.findAll(new Sort(Sort.Direction.DESC,"id"));
         ServiceResponse<List<Item>> response = new ServiceResponse<>("success", listItems);
 
-        LOGGER.info("---> Method: addItem (" + item.getName() + ")");
 
         return new ResponseEntity<Object>(response, HttpStatus.OK);
 

@@ -7,6 +7,7 @@ import com.home.project.igrocery.entity.Event;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 public class CustomEventSerializer extends StdSerializer<List<Event>> {
 
@@ -26,8 +27,8 @@ public class CustomEventSerializer extends StdSerializer<List<Event>> {
         jsonGenerator.writeStartArray();
         for (Event event : events) {
             jsonGenerator.writeStartObject();
-            jsonGenerator.writeStringField("Event id", String.valueOf(event.getId()));
-            jsonGenerator.writeStringField("Name", event.getName());
+            jsonGenerator.writeStringField("id", String.valueOf(event.getId()));
+            jsonGenerator.writeStringField("name", event.getName());
             jsonGenerator.writeEndObject();
         }
         jsonGenerator.writeEndArray();

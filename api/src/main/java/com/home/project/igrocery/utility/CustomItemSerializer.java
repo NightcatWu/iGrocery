@@ -8,6 +8,7 @@ import com.home.project.igrocery.entity.Item;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class CustomItemSerializer extends StdSerializer<List<Item>> {
 
@@ -27,10 +28,10 @@ public class CustomItemSerializer extends StdSerializer<List<Item>> {
         jsonGenerator.writeStartArray();
         for (Item item : items) {
             jsonGenerator.writeStartObject();
-            jsonGenerator.writeStringField("Item id", String.valueOf(item.getId()));
-            jsonGenerator.writeStringField("Item name", item.getName());
-            jsonGenerator.writeStringField("Who bought", item.getBoughtWho());
-            //jsonGenerator.writeStringField("Event id", String.valueOf(item.getEvents().getId()));
+            jsonGenerator.writeStringField("id", String.valueOf(item.getId()));
+            jsonGenerator.writeStringField("name", item.getName());
+            jsonGenerator.writeStringField("bought", String.valueOf(item.isBought()));
+            jsonGenerator.writeStringField("boughtWho", item.getBoughtWho());
 
             jsonGenerator.writeEndObject();
         }

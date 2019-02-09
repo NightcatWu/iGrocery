@@ -1,6 +1,8 @@
 package com.home.project.igrocery.controller;
 
+import com.home.project.igrocery.entity.Event;
 import com.home.project.igrocery.entity.Item;
+import com.home.project.igrocery.repository.EventRepository;
 import com.home.project.igrocery.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,9 @@ public class ItemRestController {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private EventRepository eventRepository;
+
     @GetMapping("/items")
     public List<Item> getAllItems() {
         return itemRepository.findAll();
@@ -27,7 +32,18 @@ public class ItemRestController {
 
     @PostMapping("/items")
     public Item addItem(@RequestBody Item theItem) {
+
         return itemRepository.save(theItem);
+
+    }
+
+    @PostMapping("/items/{eventId}")
+    public Item addItemForEvent(@RequestBody Item theItem, @PathVariable int eventId) {
+
+        Event tempEvent = eventRepository.findById(eventId).get();
+        theItem.addEvent(tempEvent);
+        return itemRepository.save(theItem);
+
     }
 
     @PutMapping("/items")
