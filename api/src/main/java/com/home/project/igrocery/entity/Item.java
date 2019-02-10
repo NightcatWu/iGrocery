@@ -29,36 +29,16 @@ public class Item extends AbstractEntity {
     private boolean bought;
     private String boughtWho;
 
-    //@Temporal(TemporalType.DATE)
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-//    private Date boughtTime;
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE, pattern = "yyyy-MM-dd")
-//    private Date addedTime;
-
-
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
                 fetch = FetchType.LAZY)
     @JoinTable(name = "event_item",
             joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "event_id"))
-    //@JsonProperty("events")
-    //@JsonSerialize(using = CustomEventSerializer.class)
-    //@JsonBackReference
     @JsonIdentityInfo(
             generator = ObjectIdGenerators.PropertyGenerator.class,
             property = "id"
     )
     private List<Event> events;
-
-//    private int addToEventId;
-//
-//    public int getAddToEventId() {
-//        return addToEventId;
-//    }
-//
-//    public void setAddToEventId(int addToEventId) {
-//        this.addToEventId = addToEventId;
-//    }
 
     public List<Event> getEvents() {
         return events;

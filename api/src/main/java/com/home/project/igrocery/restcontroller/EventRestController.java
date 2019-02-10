@@ -1,4 +1,4 @@
-package com.home.project.igrocery.controller;
+package com.home.project.igrocery.restcontroller;
 
 import com.home.project.igrocery.entity.Event;
 import com.home.project.igrocery.entity.Item;
