@@ -1,0 +1,1 @@
+java -jar "D:\!websites\igrocery.web\igrocery-1.0.jar"
