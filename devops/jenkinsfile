@@ -5,7 +5,7 @@ node {
     }
 
     stage('Build api.v2') {
-        sh 'mvn api/pom.xml clean install' 
+        sh 'mvn api\pom.xml clean install' 
     }
 
     stage('Test') {
