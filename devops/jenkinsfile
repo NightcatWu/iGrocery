@@ -1,0 +1,14 @@
+node {
+	stage 'Checkout'
+		checkout scm
+
+	stage 'Build api.v2'
+        steps {
+            sh 'mvn api/pom.xml clean install' 
+        }
+
+	stage 'Test'
+
+    stage 'Deploy'
+		bat 'D:\\Jenkins\\workspace\\iGrocery\\devops\\deploy.igrocery.bat'
+}
