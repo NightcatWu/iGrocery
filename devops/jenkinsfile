@@ -1,18 +1,22 @@
 pipeline {
     agent any 
     stages {
-        stage('Checkout')
+        stage('Checkout'){
             checkout scm
+        }
 
-        stage('Build api.v2')
+        stage('Build api.v2') {
             steps {
                 sh 'mvn api/pom.xml clean install' 
             }
-
-        stage('Test')
+        }
+        
+        stage('Test') {
             echo "Here is testing."
-
-        stage('Deploy')
+        }
+        
+        stage('Deploy') {
             bat 'D:\\Jenkins\\workspace\\iGrocery\\devops\\deploy.igrocery.bat'
+        }
     }
 }
