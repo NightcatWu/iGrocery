@@ -1,1 +1,1 @@
-java -jar "D:\!websites\igrocery.web\igrocery-1.0.jar"
+java -jar "D:\!websites\igrocery.v1\igrocery-1.0.jar"
