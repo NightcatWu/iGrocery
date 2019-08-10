@@ -5,7 +5,7 @@ node {
     }
 
     stage('Build api.v2') {
-        bat 'mvn -f api/pom.xml clean install -X' 
+        sh 'mvn api\pom.xml clean install' 
     }
 
     stage('Test') {
@@ -13,6 +13,7 @@ node {
     }
 
     stage('Deploy') {
+        echo "${env.WORKSPACE}"
         bat 'D:\\Jenkins\\workspace\\iGrocery\\devops\\deploy.igrocery.bat'
     }
 
