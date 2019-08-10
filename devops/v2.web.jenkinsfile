@@ -5,7 +5,7 @@ node {
     }
 
     stage('Build web.v2') {
-        //bat 'mvn -f api/pom.xml clean install -X' 
+        bat "npm run build" 
     }
 
     stage('Test') {
@@ -14,7 +14,12 @@ node {
 
     stage('Deploy') {
         echo "${env.WORKSPACE}"
-        bat 'D:\\Jenkins\\workspace\\iGrocery.v2.api\\devops\\deploy.igrocery.web.bat'
+        //bat "${env.WORKSPACE}\\devops\\deploy.igrocery.web.bat"
+        bat "NET STOP iGrocery.Web"
+        bat "robocopy ""${env.WORKSPACE}\\web.v2\\build"" ""D:\\!websites\\igrocery.v2.web"" /MIR"
+        bat "robocopy ""${env.WORKSPACE}\\devops"" ""D:\\!websites"" ""hosting.igrocery.web.bat"" "
+        bat "NET START iGrocery.Web"
+
     }
 
 }
