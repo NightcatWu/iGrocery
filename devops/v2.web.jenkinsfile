@@ -14,7 +14,7 @@ node {
 
     stage('Deploy') {
         echo "${env.WORKSPACE}"
-        bat 'D:\\Jenkins\\workspace\\iGrocery\\devops\\deploy.igrocery.web.bat'
+        bat 'D:\\Jenkins\\workspace\\iGrocery.v2.api\\devops\\deploy.igrocery.web.bat'
     }
 
 }
