@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import TodoItem from './TodoItem'
 import {GetTodoItems,AddTodoItem} from '../libs/api'
-import {Button,Input,Row,Col} from 'antd'
+import {Button,Input,Row,Col,Divider} from 'antd'
 class TodoList extends Component {
     constructor(props){
         super(props);
@@ -42,6 +42,7 @@ class TodoList extends Component {
     render(){
         return (
             <div>
+                <Divider></Divider>
                 <Row>
                     <Col span={4}></Col>
                     <Col span={10}>
