@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
-import {Button,Input,Row,Col,Switch} from 'antd'
-import Item from 'antd/lib/list/Item';
+import {Row,Col,Switch} from 'antd'
+import {UpdateTodoItem} from '../libs/api'
 
 class TodoItem extends Component {
     constructor(props){
@@ -10,14 +10,20 @@ class TodoItem extends Component {
         }
     }
 
-    handleSwitchChange (checked){
-        console.log(checked)
-        console.log("put [item] to api")
+    handleSwitchChange = (checked)=>{
+        // console.log(checked)
+        let item = this.state.item
+        item.status = checked?"done":"todo"
+        UpdateTodoItem(item).then(res=>{
+            this.setState({
+                item:item
+            })
+        })
     }
 
     render(){
         const {item} = this.state
-        console.log(item)
+        // console.log(item)
         return (
             <Row type="flex" align="middle">
                 <Col span={4}>
@@ -26,7 +32,7 @@ class TodoItem extends Component {
                 <Col span={4}>
                     <Switch 
                         onChange={this.handleSwitchChange}
-                        checked={item.status=="done"?true:false}
+                        checked={item.status==="done"?true:false}
                     />
                     
                 </Col>
