@@ -21,10 +21,9 @@ node {
     stage('Deploy') {
 
         powershell "stop-service -name iGrocery.Web"
-        bat "robocopy ${env.WORKSPACE}\\web.v2\\build D:\\!websites\\igrocery.v2.web /MIR"
-        bat "robocopy ${env.WORKSPACE}\\devops D:\\!websites hosting.igrocery.web.bat"
+        bat "robocopy \"${env.WORKSPACE}\\web.v2\\build\" \"D:\\!websites\\igrocery.v2.web\" /MIR"
+        bat "robocopy \"${env.WORKSPACE}\\devops\" \"D:\\!websites\" hosting.igrocery.web.bat"
         powershell "start-service -name iGrocery.Web"
-
     }
 
 }
