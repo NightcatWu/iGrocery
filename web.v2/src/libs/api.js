@@ -23,7 +23,7 @@ export function GetTodoItems (){
 export function UpdateTodoItem (item){
     const url = BASE_URL+"/items"
 
-    const index = mock_items.findIndex(item=>item.id === item.id)
+    const index = mock_items.findIndex(i=>i.id === item.id)
     const result = Promise.resolve(mock_items[index] = item)
     return result
 
