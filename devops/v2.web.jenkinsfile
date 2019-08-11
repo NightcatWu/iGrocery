@@ -1,0 +1,30 @@
+node {
+
+    stage('Checkout'){
+        checkout scm
+    }
+    //set workspace folder to subfolder
+    dir("${env.WORKSPACE}\\web.v2"){
+        stage('Setup NPM') {
+            bat "npm install" 
+        }
+
+        stage('Build web.v2') {
+            bat "npm run build" 
+        }
+    }
+
+    stage('Test') {
+        echo "Here is testing."
+    }
+
+    stage('Deploy') {
+
+        powershell "stop-service -name iGrocery.Web"
+        bat "robocopy ${env.WORKSPACE}\\web.v2\\build D:\\!websites\\igrocery.v2.web /MIR"
+        bat "robocopy ${env.WORKSPACE}\\devops D:\\!websites hosting.igrocery.web.bat"
+        powershell "start-service -name iGrocery.Web"
+
+    }
+
+}
