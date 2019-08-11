@@ -13,8 +13,10 @@ node {
     }
 
     stage('Deploy') {
-        echo "${env.WORKSPACE}"
-        bat "${env.WORKSPACE}\\devops\\deploy.igrocery.api.bat"
+        powershell 'stop-service -name iGrocery.Api'
+        bat "robocopy \"${env.WORKSPACE}\\api.v2\\target\" \"D:\\!websites\\igrocery.v2.api\" /MIR"
+        bat "robocopy \"${env.WORKSPACE}\\devops\" \"D:\\!websites\" hosting.igrocery.api.bat "
+        powershell 'start-service -name iGrocery.Api'
     }
 
 }
