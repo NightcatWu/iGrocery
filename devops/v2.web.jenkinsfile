@@ -3,6 +3,7 @@ node {
     stage('Checkout'){
         checkout scm
     }
+    //set workspace folder to subfolder
     dir("${env.WORKSPACE}\\web.v2"){
         stage('Setup NPM') {
             bat "npm install" 
@@ -19,7 +20,7 @@ node {
 
     stage('Deploy') {
         //bat "${env.WORKSPACE}\\devops\\deploy.igrocery.web.bat"
-        bat "NET STOP iGrocery.Web"
+        bat "NET STOP iGrocery.Web 2>nul"
         bat "robocopy ${env.WORKSPACE}\\web.v2\\build D:\\!websites\\igrocery.v2.web /MIR"
         bat "robocopy ${env.WORKSPACE}\\devops D:\\!websites hosting.igrocery.web.bat "
         bat "NET START iGrocery.Web"
