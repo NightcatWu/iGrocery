@@ -41,6 +41,7 @@ class TodoList extends Component {
     }
 
     render(){
+        if(this.state.todoItems === []) {return ""}
         return (
             <div>
                 <Divider></Divider>
@@ -54,7 +55,8 @@ class TodoList extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    {this.state.todoItems.map((item,index)=>{
+                    { 
+                        this.state.todoItems.map((item,index)=>{
                         return (
                             <TodoItem key={index} item={item} />
                         )
