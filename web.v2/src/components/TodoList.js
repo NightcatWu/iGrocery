@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import TodoItem from './TodoItem'
 import {GetTodoItems} from '../libs/api'
-import {Button,Input} from 'antd'
+import {Button,Input,Row,Col} from 'antd'
 class TodoList extends Component {
     constructor(props){
         super(props);
@@ -21,7 +21,10 @@ class TodoList extends Component {
         //     })
         // })
             this.setState({
-                todoItems:["item-a","item-b","item-c"],
+                todoItems:[{id:1,name:"item-a",status:"todo"},
+                {id:2,name:"item-b",status:"todo"},
+                {id:3,name:"item-c",status:"done"},
+                ],
             })
         
     }
@@ -44,13 +47,18 @@ class TodoList extends Component {
     render(){
         return (
             <div>
-                <Input placeholder="New Item" onChange={this.handleAddTodoItemInput} value={this.state.newItem}></Input>
-                <Button type="primary" onClick={this.handleAddTodoItem}>+++</Button>
-                {this.state.todoItems.map((item,index)=>{
-                    return (
-                        <TodoItem key={index} item={item} />
-                    )
-                })}
+                <Row>
+                    <Col span={4}></Col>
+                    <Col span={10}><Input placeholder="New Item" onChange={this.handleAddTodoItemInput} value={this.state.newItem}></Input></Col>
+                    <Col span={10} style={{"display":"inline-flex"}}><Button type="primary" shape="round" onClick={this.handleAddTodoItem}>+++</Button></Col>
+                </Row>
+                <Row>
+                    {this.state.todoItems.map((item,index)=>{
+                        return (
+                            <TodoItem key={index} item={item} />
+                        )
+                    })}
+                </Row>
             </div>
         )
     }
