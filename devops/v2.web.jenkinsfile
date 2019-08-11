@@ -19,11 +19,11 @@ node {
     }
 
     stage('Deploy') {
-        //bat "${env.WORKSPACE}\\devops\\deploy.igrocery.web.bat"
-        bat "NET STOP iGrocery.Web 2>nul"
+
+        powershell "stop-service -name iGrocery.Web"
         bat "robocopy ${env.WORKSPACE}\\web.v2\\build D:\\!websites\\igrocery.v2.web /MIR"
-        bat "robocopy ${env.WORKSPACE}\\devops D:\\!websites hosting.igrocery.web.bat "
-        bat "NET START iGrocery.Web"
+        bat "robocopy ${env.WORKSPACE}\\devops D:\\!websites hosting.igrocery.web.bat"
+        powershell "start-service -name iGrocery.Web"
 
     }
 
