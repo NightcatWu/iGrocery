@@ -5,7 +5,7 @@ node {
     }
 
     stage('Build api.v2') {
-        bat 'mvn -f api/pom.xml clean install -X' 
+        bat 'mvn -f api.v2/pom.xml clean install -X' 
     }
 
     stage('Test') {
@@ -13,8 +13,10 @@ node {
     }
 
     stage('Deploy') {
-        echo "${env.WORKSPACE}"
-        bat "${env.WORKSPACE}\\devops\\deploy.igrocery.api.bat"
+        powershell 'stop-service -name iGrocery.Api'
+        powershell "robocopy \"${env.WORKSPACE}\\api.v2\\target\" \"D:\\!websites\\igrocery.v2.api\" /MIR; Exit 0"
+        powershell "robocopy \"${env.WORKSPACE}\\devops\" \"D:\\!websites\" hosting.igrocery.api.bat; Exit 0"
+        powershell 'start-service -name iGrocery.Api'
     }
 
 }

@@ -1,46 +1,32 @@
 import axios from 'axios'
 
-const BASE_URL = "http://192.168.1.230:6101"
+const BASE_URL = "http://192.168.1.230:6101/api/"
+//const BASE_URL = "http://localhost:4000/"
 
-let mock_items = 
-[
-    {id:1,name:"item-a",status:"todo"},
-    {id:2,name:"item-b",status:"todo"},
-    {id:3,name:"item-c",status:"done"},
-]
+const base_url_items = BASE_URL + "items"
 
-export function GetTodoItems (){
-    const url = BASE_URL+"/items"
-    const result = Promise.resolve(mock_items)
+export async function GetTodoItems (){
+    let result
+    await axios.get(base_url_items).then((res)=>{
+        result = res.data
+        console.log('api get',result)
+    })
     return result
+}
 
-    axios.get(url)
+export async function UpdateTodoItem (item){
+    console.log('put',item)
+    await axios.put(base_url_items+"/"+item.id,item)
     .then(res=>{
-  
+        return res
     })
 }
 
-export function UpdateTodoItem (item){
-    const url = BASE_URL+"/items"
-
-    const index = mock_items.findIndex(item=>item.id === item.id)
-    const result = Promise.resolve(mock_items[index] = item)
-    return result
-
-    axios.put(url,item)
+export async function AddTodoItem (itemName){
+    const newItem = {name:itemName,status:"todo"}
+    // console.log('api add',newItem)
+    await axios.post(base_url_items,newItem)
     .then(res=>{
-  
-    })
-}
-
-export function AddTodoItem (itemName){
-    const url = BASE_URL+"/items"
-    const item = {id:mock_items.length+1,name:itemName,status:"todo"}
-    const result = Promise.resolve(mock_items.push(item))
-    return result
-
-    axios.post(url,itemName)
-    .then(res=>{
-  
+        return res
     })
 }

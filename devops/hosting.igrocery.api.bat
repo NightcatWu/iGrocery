@@ -1,1 +1,1 @@
-java -jar "D:\!websites\igrocery.v2\igrocery-api-2.0.jar"
+java -jar "D:\!websites\igrocery.v2.api\igrocery-api-2.0.jar"

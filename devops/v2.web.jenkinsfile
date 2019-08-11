@@ -15,16 +15,14 @@ node {
     }
 
     stage('Test') {
-        echo "Here is testing."
+        powershell "Write-Host \"Here is testing, ${env.WORKSPACE}\" "
     }
 
     stage('Deploy') {
-
         powershell "stop-service -name iGrocery.Web"
-        bat "robocopy ${env.WORKSPACE}\\web.v2\\build D:\\!websites\\igrocery.v2.web /MIR"
-        bat "robocopy ${env.WORKSPACE}\\devops D:\\!websites hosting.igrocery.web.bat"
+        powershell "robocopy \"${env.WORKSPACE}\\web.v2\\build\" \"D:\\!websites\\igrocery.v2.web\" /MIR /E /PURGE; Exit 0 "
+        powershell "robocopy \"${env.WORKSPACE}\\devops\" \"D:\\!websites\" hosting.igrocery.web.bat; Exit 0"
         powershell "start-service -name iGrocery.Web"
-
     }
 
 }
