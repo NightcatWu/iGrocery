@@ -3,9 +3,14 @@ node {
     stage('Checkout'){
         checkout scm
     }
+    dir("${env.WORKSPACE}\\web.v2"){
+        stage('Setup NPM') {
+            bat "npm install" 
+        }
 
-    stage('Build web.v2') {
-        bat "npm run build" 
+        stage('Build web.v2') {
+            bat "npm run build" 
+        }
     }
 
     stage('Test') {
@@ -13,7 +18,6 @@ node {
     }
 
     stage('Deploy') {
-        echo "${env.WORKSPACE}"
         //bat "${env.WORKSPACE}\\devops\\deploy.igrocery.web.bat"
         bat "NET STOP iGrocery.Web"
         bat "robocopy ""${env.WORKSPACE}\\web.v2\\build"" ""D:\\!websites\\igrocery.v2.web"" /MIR"
