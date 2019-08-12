@@ -20,7 +20,7 @@ class TodoList extends Component {
     }
 
     componentDidMount(){
-        console.log("load data from api")
+        // console.log("load data from api")
         this.getTodoItems();
     }
     
