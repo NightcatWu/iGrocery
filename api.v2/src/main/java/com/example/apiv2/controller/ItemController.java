@@ -3,6 +3,7 @@ package com.example.apiv2.controller;
 import com.example.apiv2.dao.ItemRepo;
 import com.example.apiv2.exception.ItemNotFoundException;
 import com.example.apiv2.model.Item;
+import com.example.apiv2.model.Status;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -21,12 +22,12 @@ public class ItemController {
 
     @GetMapping("")
     List<Item> getItems() {
-        return repo.findAll();
+        return repo.findAllWithStatusAndAllIn48Hours(Status.TODO.toString());
     }
 
     @GetMapping("/")
     List<Item> getAllItems() {
-        return repo.findAll();
+        return repo.findAllWithStatusAndAllIn48Hours(Status.TODO.toString());
     }
 
     @GetMapping("/{id}")
@@ -38,6 +39,7 @@ public class ItemController {
     @PostMapping("")
     public Item postItem(@RequestBody Item item) {
         item.setLastUpdatedTime(new Date());
+        item.setStatus(Status.TODO.toString());
         repo.save(item);
         return item;
     }
@@ -47,10 +49,12 @@ public class ItemController {
         Item item = repo.findById(id)
                 .orElseThrow(() -> new ItemNotFoundException(id));
 
+        item.setName(newItem.getName());
+        item.setStatus(newItem.getStatus());
         item.setLastUpdatedTime(new Date());
-        repo.save(newItem);
+        repo.save(item);
 
-        return newItem;
+        return item;
     }
 
     @DeleteMapping("/{id}")
