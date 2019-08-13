@@ -1,7 +1,9 @@
 import React,{Component} from 'react'
 import TodoItem from './TodoItem'
 import {GetTodoItems,AddTodoItem} from '../libs/api'
-import {Button,Input,Row,Col,Divider} from 'antd'
+import {Button,Input,Row,Col,Divider, message} from 'antd'
+var _ = require('lodash/core');
+
 class TodoList extends Component {
     constructor(props){
         super(props);
@@ -24,6 +26,9 @@ class TodoList extends Component {
         this.getTodoItems();
     }
     
+    handleGetTodoItems=()=>{
+        this.getTodoItems();
+    }
     handleAddTodoItemInput = (e) =>{
         // console.log(e.target.value)
         this.setState({
@@ -31,36 +36,46 @@ class TodoList extends Component {
         })
     }
     handleAddTodoItem = () =>{
-        console.log("add a new item:", this.state.newItem)
-        AddTodoItem(this.state.newItem).then((res)=>{
-            this.getTodoItems();
+        const unDoneItems = _.filter(this.state.todoItems,function(item){return item.status!=="done"})
+        console.log('unDoneItems',unDoneItems)
+        if (unDoneItems.length>10){
+            message.error("Life is short, too many to overwhelm!",5)
+        }
+        else {
+            const newItem = this.state.newItem
             this.setState({
                 newItem:""
             })
-        })
+            console.log("add a new item:", newItem)
+            AddTodoItem(newItem).then((res)=>{
+                this.getTodoItems();
+            })
+        }
     }
 
     render(){
         if(this.state.todoItems === []) {return ""}
+        console.log('current undoItems',_.filter(this.state.todoItems,function(item){return item.status!=="done"}))
         return (
             <div>
                 <Divider></Divider>
                 <Row>
-                    <Col span={4}></Col>
-                    <Col span={10}>
-                        <Input placeholder={"New Item: "+window.innerWidth} onChange={this.handleAddTodoItemInput} value={this.state.newItem}></Input>
-                    </Col>
-                    <Col span={10} style={{"display":"inline-flex"}}>
-                        <Button type="primary" shape="round" onClick={this.handleAddTodoItem} disabled={this.state.newItem===""}>+++</Button>
-                    </Col>
-                </Row>
-                <Row>
                     { 
                         this.state.todoItems.map((item,index)=>{
                         return (
-                            <TodoItem key={index} item={item} />
+                            <TodoItem key={index} item={item} handleGetTodoItems={this.handleGetTodoItems}/>
                         )
                     })}
+                </Row>
+                <Divider></Divider>
+                <Row>
+                    <Col span={2}></Col>
+                    <Col span={16}>
+                        <Input placeholder={"New Item: "+window.innerWidth} onChange={this.handleAddTodoItemInput} value={this.state.newItem}></Input>
+                    </Col>
+                    <Col span={6} style={{"display":"inline-flex"}}>
+                        <Button type="primary" shape="circle" onClick={this.handleAddTodoItem} disabled={this.state.newItem===""}>+</Button>
+                    </Col>
                 </Row>
             </div>
         )

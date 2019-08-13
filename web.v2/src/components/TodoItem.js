@@ -11,15 +11,23 @@ class TodoItem extends Component {
         }
     }
 
-    handleSwitchChange = (checked)=>{
-        // console.log(checked)
-        let item = this.state.item
-        item.status = checked?"done":"todo"
-        UpdateTodoItem(item).then(res=>{
+    async updateTodoItem(item){
+        await UpdateTodoItem(item).then(res=>{
             this.setState({
                 item:item
             })
         })
+    }
+    handleSwitchChange = (checked)=>{
+        //first make sure exit item editor
+        this.handleEditItemNameDone()
+
+        let item = this.state.item
+        item.status = checked?"done":"todo"
+        this.updateTodoItem(item)
+
+        this.props.handleGetTodoItems()
+
     }
 
     handleEditItemName = () =>{
@@ -29,7 +37,7 @@ class TodoItem extends Component {
     }
 
     handleEditItemNameDone = () =>{
-        UpdateTodoItem(this.state.item)
+        this.updateTodoItem(this.state.item)
         this.setState({
             editable:false
         })
@@ -45,6 +53,7 @@ class TodoItem extends Component {
         const {item} = this.state
 
         let itemNameDOM
+
         if (this.state.editable)
         {
             itemNameDOM = 
@@ -55,15 +64,16 @@ class TodoItem extends Component {
                 </div>
         }
         else {
+            const isDone = item.status==="done"?"line-through":"none"
             itemNameDOM = 
-
-            <div onClick={this.handleEditItemName}>{item.name}</div>
+                <div onClick={this.handleEditItemName}
+                    style={{"textAlign":"left","textDecoration":isDone}}
+                >{item.name}</div>
         }
         // console.log(item)
         return (
-            <Row type="flex" align="middle">
-                <Col span={4}>
-                    
+            <Row type="flex" align="middle" style={{"marginTop":"5px"}}>
+                <Col span={2}>
                 </Col>
                 <Col span={4}>
                     <Switch 
@@ -72,7 +82,7 @@ class TodoItem extends Component {
                     />
                     
                 </Col>
-                <Col span={10} style={{"display":"inline-flex","fontSize":"22px"}}>
+                <Col span={18} style={{"fontSize":"18px"}}>
                     {itemNameDOM}
                 </Col>
             </Row>
