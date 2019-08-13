@@ -8,12 +8,17 @@
     {
       "id": 2,
       "name": "item-b",
-      "status": "done"
+      "status": "todo"
     },
     {
       "id": 3,
       "name": "item-c",
-      "status": "done"
+      "status": "todo"
+    },
+    {
+      "name": "item-d",
+      "status": "done",
+      "id": 4
     }
   ]
 }

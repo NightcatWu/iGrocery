@@ -1,9 +1,8 @@
 import axios from 'axios'
 
-const BASE_URL = "http://192.168.1.230:6101/api/"
-//const BASE_URL = "http://localhost:4000/"
+const BASE_URL = process.env.REACT_APP_API_BASE_URL
 
-const base_url_items = BASE_URL + "items"
+const base_url_items = BASE_URL + "/items"
 
 export async function GetTodoItems (){
     let result
@@ -24,7 +23,7 @@ export async function UpdateTodoItem (item){
 
 export async function AddTodoItem (itemName){
     const newItem = {name:itemName,status:"todo"}
-    // console.log('api add',newItem)
+    console.log('post',newItem)
     await axios.post(base_url_items,newItem)
     .then(res=>{
         return res
