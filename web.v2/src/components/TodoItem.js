@@ -72,7 +72,7 @@ class TodoItem extends Component {
         }
         // console.log(item)
         return (
-            <Row type="flex" align="middle" style={{"marginTop":"5px"}}>
+            <Row type="flex" align="top" style={{"marginTop":"5px"}}>
                 <Col span={2}>
                 </Col>
                 <Col span={4}>

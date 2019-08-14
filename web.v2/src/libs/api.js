@@ -14,7 +14,7 @@ export async function GetTodoItems (){
 }
 
 export async function UpdateTodoItem (item){
-    console.log('put',item)
+    console.log('update',item)
     await axios.put(base_url_items+"/"+item.id,item)
     .then(res=>{
         return res
