@@ -1,7 +1,11 @@
 node {
-
     stage('Checkout'){
         checkout scm
+    }
+    
+try {
+    stage('Offline'){
+        powershell 'stop-service -name iGrocery.Api'
     }
 
     stage('Build api.v2') {
@@ -11,12 +15,21 @@ node {
     stage('Test') {
         echo "Here is testing."
     }
+}
+catch(e) {
+    powershell 'start-service -name iGrocery.Api'
+    throw e
+}
 
+finally {
+
+}
     stage('Deploy') {
-        powershell 'stop-service -name iGrocery.Api'
         powershell "robocopy \"${env.WORKSPACE}\\api.v2\\target\" \"D:\\!websites\\igrocery.v2.api\" /MIR; Exit 0"
         powershell "robocopy \"${env.WORKSPACE}\\devops\" \"D:\\!websites\" hosting.igrocery.api.bat; Exit 0"
-        powershell 'start-service -name iGrocery.Api'
     }
 
+    stage('Online'){
+        powershell 'start-service -name iGrocery.Api'
+    }
 }
