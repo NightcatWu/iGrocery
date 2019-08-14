@@ -14,6 +14,6 @@ public interface ItemRepo extends JpaRepository<Item, Integer> {
     @Query("SELECT i FROM Item i WHERE (i.status, i.lastUpdatedTime) in" +
             "(SELECT j.status, j.lastUpdatedTime FROM Item j WHERE j.status = ?1)" +
             "or (i.status, i.lastUpdatedTime) in" +
-            "(SELECT k.status, k.lastUpdatedTime FROM Item k WHERE k.lastUpdatedTime < sysdate+2)")
+            "(SELECT k.status, k.lastUpdatedTime FROM Item k WHERE k.lastUpdatedTime >= sysdate-2)")
     List<Item> findAllWithStatusAndAllIn48Hours(String status);
 }
