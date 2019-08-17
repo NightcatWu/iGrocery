@@ -2,21 +2,22 @@ node {
     stage('Checkout'){
         checkout scm
     }
-    
-    stage('sonarqube'){
-        environment {
-            scannerHome = tool 'SonarQubeScanner'
-        }
-        steps {
-            withSonarQubeEnv('sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-            timeout(time: 10, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
+    dir("${env.WORKSPACE}\\api.v2"){
+        stage('SonarQube'){
+
+            withEnv(["scannerHome=${tool 'SonarQubeScanner'}"]) {
+                    
+                withSonarQubeEnv('sonarqube') {
+                    //bat "${scannerHome}\\bin\\sonar-scanner.bat"
+                    bat "mvn clean package sonar:sonar"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+                
             }
         }
     }
-
 try {
     stage('Offline'){
         powershell 'stop-service -name iGrocery.Api'
