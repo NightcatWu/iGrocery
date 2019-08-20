@@ -39,6 +39,7 @@ class TodoList extends Component {
         const unDoneItems = _.filter(this.state.todoItems,function(item){return item.status!=="done"})
         console.log('unDoneItems',unDoneItems)
         if (unDoneItems.length>10){
+            console.log('current undoItems',_.filter(this.state.todoItems,function(item){return item.status!=="done"}))
             message.error("Life is short, too many to overwhelm!",5)
         }
         else {
@@ -55,20 +56,10 @@ class TodoList extends Component {
 
     render(){
         if(this.state.todoItems === []) {return ""}
-        console.log('current undoItems',_.filter(this.state.todoItems,function(item){return item.status!=="done"}))
+        
         return (
             <div>
-                <Divider></Divider>
-                <Row>
-                    { 
-                        this.state.todoItems.map((item,index)=>{
-                        return (
-                            <TodoItem key={index} item={item} handleGetTodoItems={this.handleGetTodoItems}/>
-                        )
-                    })}
-                </Row>
-                <Divider></Divider>
-                <Row>
+                <Row style={{marginTop:"5%"}}>
                     <Col span={2}></Col>
                     <Col span={16}>
                         <Input placeholder={"New Item: "+window.innerWidth} onChange={this.handleAddTodoItemInput} value={this.state.newItem}></Input>
@@ -77,6 +68,14 @@ class TodoList extends Component {
                         <Button type="primary" shape="circle" onClick={this.handleAddTodoItem} disabled={this.state.newItem===""}>+</Button>
                     </Col>
                 </Row>
+                <Row style={{marginTop:"5%"}}>
+                    { 
+                        this.state.todoItems.map((item,index)=>{
+                        return (
+                            <TodoItem key={index} item={item} handleGetTodoItems={this.handleGetTodoItems}/>
+                        )
+                    })}
+                </Row>                
             </div>
         )
     }

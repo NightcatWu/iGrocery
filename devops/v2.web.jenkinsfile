@@ -3,6 +3,19 @@ node {
     stage('Checkout'){
         checkout scm
     }
+    dir("${env.WORKSPACE}\\web.v2"){
+        stage('SonarQube'){
+            withEnv(["scannerHome=${tool 'SonarQubeScanner'}"]) {
+                withSonarQubeEnv('sonarqube') {
+                    bat "${scannerHome}\\bin\\sonar-scanner.bat -Dsonar.projectKey=igrocery-web"
+                }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+                
+            }
+        }
+    }    
     //set workspace folder to subfolder
     dir("${env.WORKSPACE}\\web.v2"){
         stage('Setup NPM') {
