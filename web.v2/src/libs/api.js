@@ -22,7 +22,7 @@ export async function UpdateTodoItem (item){
 }
 
 export async function AddTodoItem (itemName){
-    const newItem = {name:itemName,status:"todo"}
+    const newItem = {name:itemName}
     console.log('post',newItem)
     await axios.post(base_url_items,newItem)
     .then(res=>{
