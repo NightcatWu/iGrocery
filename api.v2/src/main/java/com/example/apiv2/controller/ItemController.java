@@ -21,17 +21,17 @@ public class ItemController {
     }
 
     @GetMapping("")
-    List<Item> getItems() {
+    public List<Item> getItems() {
         return repo.findAllWithStatusAndAllIn48Hours(Status.TODO.toString());
     }
 
     @GetMapping("/")
-    List<Item> getAllTodoItemms() {
+    public List<Item> getAllTodoItemms() {
         return repo.findAllWithStatusAndAllIn48Hours(Status.TODO.toString());
     }
 
     @GetMapping("/all")
-    List<Item> getAllItems() {
+    public List<Item> getAllItems() {
         return repo.findAll();
     }
 
