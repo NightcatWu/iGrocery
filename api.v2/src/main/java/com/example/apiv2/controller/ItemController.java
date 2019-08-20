@@ -55,7 +55,7 @@ public class ItemController {
                 .orElseThrow(() -> new ItemNotFoundException(id));
 
         item.setName(newItem.getName());
-        item.setStatus(newItem.getStatus());
+        item.setStatus(newItem.getStatus().toUpperCase());
         item.setLastUpdatedTime(new Date());
         repo.save(item);
 
