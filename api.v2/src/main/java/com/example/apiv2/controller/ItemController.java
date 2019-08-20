@@ -26,8 +26,13 @@ public class ItemController {
     }
 
     @GetMapping("/")
-    List<Item> getAllItems() {
+    List<Item> getAllTodoItemms() {
         return repo.findAllWithStatusAndAllIn48Hours(Status.TODO.toString());
+    }
+
+    @GetMapping("/all")
+    List<Item> getAllItems() {
+        return repo.findAll();
     }
 
     @GetMapping("/{id}")
