@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Row,Col,Switch,Input} from 'antd'
 import {UpdateTodoItem} from '../libs/api'
+import {todoItemStatus} from '../constants/enums'
 
 class TodoItem extends Component {
     constructor(props){
@@ -23,7 +24,7 @@ class TodoItem extends Component {
         this.handleEditItemNameDone()
 
         let item = this.state.item
-        item.status = checked?"done":"todo"
+        item.status = checked?todoItemStatus.done:todoItemStatus.todo
         this.updateTodoItem(item)
 
         this.props.handleGetTodoItems()
@@ -64,7 +65,7 @@ class TodoItem extends Component {
                 </div>
         }
         else {
-            const isDone = item.status==="done"?"line-through":"none"
+            const isDone = item.status===todoItemStatus.done?"line-through":"none"
             itemNameDOM = 
                 <div onClick={this.handleEditItemName}
                     style={{"textAlign":"left","textDecoration":isDone}}
@@ -78,7 +79,7 @@ class TodoItem extends Component {
                 <Col span={4}>
                     <Switch 
                         onChange={this.handleSwitchChange}
-                        checked={item.status==="done"?true:false}
+                        checked={item.status===todoItemStatus.done?true:false}
                     />
                     
                 </Col>

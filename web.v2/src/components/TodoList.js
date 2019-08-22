@@ -1,7 +1,9 @@
 import React,{Component} from 'react'
 import TodoItem from './TodoItem'
 import {GetTodoItems,AddTodoItem} from '../libs/api'
-import {Button,Input,Row,Col,Divider, message} from 'antd'
+import {Button,Input,Row,Col,message} from 'antd'
+import {todoItemStatus} from '../constants/enums'
+
 var _ = require('lodash/core');
 
 class TodoList extends Component {
@@ -36,10 +38,10 @@ class TodoList extends Component {
         })
     }
     handleAddTodoItem = () =>{
-        const unDoneItems = _.filter(this.state.todoItems,function(item){return item.status!=="done"})
+        const unDoneItems = _.filter(this.state.todoItems,function(item){return item.status!==todoItemStatus.done})
         console.log('unDoneItems',unDoneItems)
         if (unDoneItems.length>10){
-            console.log('current undoItems',_.filter(this.state.todoItems,function(item){return item.status!=="done"}))
+            console.log('current undoItems',_.filter(this.state.todoItems,function(item){return item.status!==todoItemStatus.done}))
             message.error("Life is short, too many to overwhelm!",5)
         }
         else {
