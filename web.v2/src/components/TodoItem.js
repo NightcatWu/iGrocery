@@ -113,7 +113,7 @@ class TodoItem extends Component {
                                     backgroundImage:"linear-gradient(to right, LightBlue "+currentEditingCountdownRate+", white "+currentEditingCountdownRate+")",
                                 }}
                             >
-                                Save <span style={{fontSize:"7px"}}>-{this.state.editingCountdown<10?"0":""}{this.state.editingCountdown}</span>
+                                Save <span style={{fontSize:"6px"}}>{this.state.editingCountdown<10?"0":""}{this.state.editingCountdown}</span>
                             </Button>
                             }
                         >
@@ -133,8 +133,6 @@ class TodoItem extends Component {
         // console.log(item)
         return (
             <Row type="flex" align="top" style={{"marginTop":"5px"}}>
-                <Col span={2}>
-                </Col>
                 <Col span={4}>
                     <Switch 
                         onChange={this.handleSwitchChange}

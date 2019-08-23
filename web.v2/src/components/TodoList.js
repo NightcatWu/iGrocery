@@ -61,8 +61,7 @@ class TodoList extends Component {
         
         return (
             <div>
-                <Row style={{marginTop:"5%"}}>
-                    <Col span={2}></Col>
+                <Row style={{marginTop:"5%",marginLeft:"1%"}}>
                     <Col span={16}>
                         <Input placeholder={"New Item: "+window.innerWidth} onChange={this.handleAddTodoItemInput} value={this.state.newItem}></Input>
                     </Col>
