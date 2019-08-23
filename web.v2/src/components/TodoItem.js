@@ -1,14 +1,17 @@
 import React, {Component} from 'react'
-import {Row,Col,Switch,Input} from 'antd'
+import {Row,Col,Switch,Input,Button} from 'antd'
 import {UpdateTodoItem} from '../libs/api'
 import {todoItemStatus} from '../constants/enums'
+
+const maxEditingCountdown = 20
 
 class TodoItem extends Component {
     constructor(props){
         super(props);
         this.state={
             item:this.props.item,
-            editable : false
+            isEditing:false,
+            editingCountdown : maxEditingCountdown
         }
     }
 
@@ -33,14 +36,40 @@ class TodoItem extends Component {
 
     handleEditItemName = () =>{
         this.setState({
-            editable:true
+            isEditing:true
         })
+  
+        var counter = this.state.editingCountdown-1;
+        var i = setInterval(function(){
+            console.log(this.state.editingCountdown)
+            this.setState({
+                editingCountdown: counter
+            })
+        
+            counter--;
+
+            if (!this.state.isEditing) {
+                this.setState({
+                    isEditing:false,
+                    editingCountdown:maxEditingCountdown
+                })
+                clearInterval(i);
+            }
+            else {
+                if(counter === 0) {
+                    this.handleEditItemNameDone()
+                    clearInterval(i);
+                }
+            }
+        }.bind(this), 1000);
+
     }
 
     handleEditItemNameDone = () =>{
         this.updateTodoItem(this.state.item)
         this.setState({
-            editable:false
+            isEditing:false,
+            editingCountdown:maxEditingCountdown
         })
     }    
     handleEditItemNameInput = (e) =>{
@@ -54,22 +83,52 @@ class TodoItem extends Component {
         const {item} = this.state
 
         let itemNameDOM
-
-        if (this.state.editable)
+        console.log(item)
+        if (item.status===todoItemStatus.done)
         {
+            //if the item is done: showing line-through and cannot edit
             itemNameDOM = 
-                <div>
-                    <Col>
-                        <Input value={item.name} onChange={this.handleEditItemNameInput} onMouseLeave={this.handleEditItemNameDone} onPressEnter={this.handleEditItemNameDone}></Input>
-                    </Col>
-                </div>
+                <div 
+                    style={{"textAlign":"left","textDecoration":"line-through"}}
+                >{item.name}</div>
         }
         else {
-            const isDone = item.status===todoItemStatus.done?"line-through":"none"
-            itemNameDOM = 
-                <div onClick={this.handleEditItemName}
-                    style={{"textAlign":"left","textDecoration":isDone}}
-                >{item.name}</div>
+
+            if(this.state.isEditing){
+                const currentEditingCountdownRate = (maxEditingCountdown-this.state.editingCountdown+1)*(100/maxEditingCountdown)+"%"
+                // console.log(currentEditingCountdownRate)
+                itemNameDOM = 
+                <div>
+                    <Col>
+                        <Input 
+                        value={item.name} 
+                        onChange={this.handleEditItemNameInput} 
+                        allowClear 
+                        onPressEnter={this.handleEditItemNameDone}
+                        addonAfter={
+                            <Button 
+                                size="small" 
+                                onClick={this.handleEditItemNameDone}
+                                style={{
+                                    backgroundImage:"linear-gradient(to right, LightBlue "+currentEditingCountdownRate+", white "+currentEditingCountdownRate+")",
+                                }}
+                            >
+                                Save <span style={{fontSize:"7px"}}>-{this.state.editingCountdown<10?"0":""}{this.state.editingCountdown}</span>
+                            </Button>
+                            }
+                        >
+                        </Input>
+                    </Col>
+                </div>
+            }
+            else {
+                itemNameDOM = 
+                    <div onClick={this.handleEditItemName}
+                        style={{"textAlign":"left","textDecoration":"none"}}
+                    >{item.name}</div>
+            }
+
+
         }
         // console.log(item)
         return (
