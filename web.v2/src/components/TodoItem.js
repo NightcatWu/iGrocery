@@ -41,7 +41,7 @@ class TodoItem extends Component {
   
         var counter = this.state.editingCountdown-1;
         var i = setInterval(function(){
-            console.log(this.state.editingCountdown)
+            // console.log(this.state.editingCountdown)
             this.setState({
                 editingCountdown: counter
             })
@@ -113,7 +113,7 @@ class TodoItem extends Component {
                                     backgroundImage:"linear-gradient(to right, LightBlue "+currentEditingCountdownRate+", white "+currentEditingCountdownRate+")",
                                 }}
                             >
-                                Save <span style={{fontSize:"6px"}}>{this.state.editingCountdown<10?"0":""}{this.state.editingCountdown}</span>
+                                OK<span style={{fontSize:"7px"}}>{this.state.editingCountdown<10?"0":""}{this.state.editingCountdown}</span>
                             </Button>
                             }
                         >
